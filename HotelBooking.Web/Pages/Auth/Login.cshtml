@@ -1,0 +1,55 @@
+﻿@page
+@model HotelBooking.Web.Pages.Auth.LoginModel
+@{
+    ViewData["Title"] = "Login";
+}
+
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-md-5">
+            <div class="card shadow border-0 rounded-4 p-4">
+                
+                <h2 class="fw-bold text-center mb-4">Welcome Back</h2>
+          @if(Model.ErrorMessage != null)
+          {
+              <div class="alert alert-danger">
+                        @Model.ErrorMessage
+               </div>
+          }     
+
+<form method="post">
+    <div class="mb-3">
+        <label asp-for="LoginDto.Email" class="form-label">Email</label>
+        <input asp-for="LoginDto.Email"
+               class="form-control"
+               placeholder="Enter your email" />
+        <span asp-validation-for="LoginDto.Email"
+              class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="LoginDto.Password" class="form-label">Password</label>
+        <input asp-for="LoginDto.Password"
+               type="password"
+               class="form-control"
+               placeholder="Enter your password" />
+        <span asp-validation-for="LoginDto.Password"
+              class="text-danger"></span>
+    </div>
+
+    <button type="submit" class="btn btn-primary w-100">
+        Login
+    </button>
+</form>
+
+<p class="text-center mt-3 text-muted"> 
+    Don't have an account?
+      <a asp-page="/Auth/Register">Register here</a>
+    </p>
+
+</div>
+</div>
+</div>
+</div>
+
+

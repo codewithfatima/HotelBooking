@@ -1,0 +1,272 @@
+﻿@page
+@model HotelBooking.Web.Pages.Hotels.DetailsModel
+
+@{
+    ViewData["Title"] = "Hotel Details";
+}
+
+<div class="bg-light min-vh-100 py-5">
+    <div class="container">
+
+        <!-- Navigation (Inline, no numbers) -->
+        <div class="d-flex align-items-center gap-2 mb-4" style="font-size: 0.9rem;">
+            <a href="/" class="text-decoration-none fw-semibold" style="color: #00126a;">Home</a>
+            <span class="text-secondary">/</span>
+            <a href="/Hotels" class="text-decoration-none fw-semibold" style="color: #00126a;">Hotels</a>
+            <span class="text-secondary">/</span>
+            <span class="text-secondary">@Model.Hotel.Name</span>
+        </div>
+
+        <!-- Hotel Header -->
+        <div class="d-flex flex-column flex-md-row
+                    justify-content-between align-items-md-center
+                    gap-3 mb-4">
+
+            <div>
+                <span class="badge rounded-pill px-3 py-2 mb-2"
+                      style="background-color: #ffd43b; color: #00126a;">
+                    DISCOVER YOUR STAY
+                </span>
+
+                <h1 class="fw-bold mb-2" style="color: #00126a;">
+                    @Model.Hotel.Name
+                </h1>
+
+                <p class="text-secondary mb-0">
+                    Experience comfort, luxury, and unforgettable moments.
+                </p>
+            </div>
+
+            <div class="bg-white rounded-4 shadow-sm p-3 text-center">
+                <div class="fs-4 fw-bold" style="color: #00126a;">
+                    <span style="color: #f4b400;">★</span>
+                    @Model.Hotel.Rating
+                </div>
+                <small class="text-secondary">Hotel Rating</small>
+            </div>
+
+        </div>
+
+        <!-- Hotel Information -->
+        <div class="card border-0 rounded-4 shadow-sm overflow-hidden mb-5">
+            <div class="row g-0">
+                <!-- Ensure your database provides a valid absolute or root-relative path (e.g. ~/images/... or /images/...) -->
+                <div class="col-lg-6">
+                    <img src="@Model.Hotel.Image"
+                         alt="@Model.Hotel.Name"
+                         class="img-fluid w-100 h-100"
+                         style="min-height: 300px; object-fit: cover;" />
+                </div>
+
+                <div class="col-lg-6">
+                    <div class="card-body p-4 p-lg-5">
+
+                        <span class="small fw-bold"
+                              style="color: #00126a; letter-spacing: 2px;">
+                            ABOUT THE HOTEL
+                        </span>
+
+                        <h2 class="fw-bold mt-3 mb-3"
+                            style="color: #00126a;">
+                            Your Perfect Getaway
+                        </h2>
+
+                        <p class="text-secondary lh-lg mb-4">
+                            @Model.Hotel.Description
+                        </p>
+
+                        <div class="d-flex flex-column gap-3 mb-4">
+                            <div>
+                                <span class="badge rounded-circle me-2"
+                                      style="background-color: #fff0a8; color: #00126a;">
+                                    ✓
+                                </span>
+                                Comfortable Stay
+                            </div>
+
+                            <div>
+                                <span class="badge rounded-circle me-2"
+                                      style="background-color: #fff0a8; color: #00126a;">
+                                    ✓
+                                </span>
+                                Quality Service
+                            </div>
+
+                            <div>
+                                <span class="badge rounded-circle me-2"
+                                      style="background-color: #fff0a8; color: #00126a;">
+                                    ✓
+                                </span>
+                                Memorable Experience
+                            </div>
+                        </div>
+
+                        <a href="#available-rooms"
+                           class="btn fw-semibold px-4 py-3"
+                           style="background-color: #00126a; color: white;">
+                            Explore Rooms →
+                        </a>
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- Property Highlights Section (Inspired by Booking layout) -->
+        <div class="mb-5">
+            <h3 class="fw-bold mb-4" style="color: #00126a;">Property highlights</h3>
+            <div class="row g-3">
+                <div class="col-md-3 col-sm-6">
+                    <div class="card border-0 rounded-3 shadow-sm p-3 h-100 bg-white">
+                        <div class="d-flex align-items-center gap-3">
+                            <div class="fs-4">🅿️</div>
+                            <div>
+                                <h6 class="fw-bold mb-1" style="color: #00126a; font-size: 0.95rem;">Free private parking</h6>
+                                <small class="text-secondary" style="font-size: 0.8rem;">Available on site</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3 col-sm-6">
+                    <div class="card border-0 rounded-3 shadow-sm p-3 h-100 bg-white">
+                        <div class="d-flex align-items-center gap-3">
+                            <div class="fs-4">🏊‍♂️</div>
+                            <div>
+                                <h6 class="fw-bold mb-1" style="color: #00126a; font-size: 0.95rem;">Outdoor swimming pool</h6>
+                                <small class="text-secondary" style="font-size: 0.8rem;">Pool bar available</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3 col-sm-6">
+                    <div class="card border-0 rounded-3 shadow-sm p-3 h-100 bg-white">
+                        <div class="d-flex align-items-center gap-3">
+                            <div class="fs-4">💆‍♀️</div>
+                            <div>
+                                <h6 class="fw-bold mb-1" style="color: #00126a; font-size: 0.95rem;">Wellness & Spa</h6>
+                                <small class="text-secondary" style="font-size: 0.8rem;">Massage & treatments</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3 col-sm-6">
+                    <div class="card border-0 rounded-3 shadow-sm p-3 h-100 bg-white">
+                        <div class="d-flex align-items-center gap-3">
+                            <div class="fs-4">☕</div>
+                            <div>
+                                <h6 class="fw-bold mb-1" style="color: #00126a; font-size: 0.95rem;">Very good breakfast</h6>
+                                <small class="text-secondary" style="font-size: 0.8rem;">Continental options</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Available Rooms Heading -->
+        <div id="available-rooms"
+             class="d-flex flex-column flex-sm-row
+                    justify-content-between align-items-sm-center
+                    gap-3 mb-4">
+
+            <div>
+                <span class="small fw-bold"
+                      style="color: #00126a; letter-spacing: 2px;">
+                    FIND YOUR COMFORT
+                </span>
+
+                <h2 class="fw-bold mt-2 mb-2" style="color: #00126a;">
+                    Available Rooms
+                </h2>
+
+                <p class="text-secondary mb-0">
+                    Choose the perfect room for your stay.
+                </p>
+            </div>
+
+            <span class="badge rounded-pill px-3 py-2 fs-6"
+                  style="background-color: #fff0a8; color: #00126a;">
+                @Model.Room.Count() Rooms
+            </span>
+
+        </div>
+
+        <!-- Room Cards -->
+        <div class="row g-4">
+
+            @foreach (var room in Model.Room)
+            {
+                <div class="col-md-6 col-lg-4">
+
+                    <div class="card h-100 border-0 rounded-4 shadow-sm overflow-hidden">
+
+                        <!-- Room Image -->
+                        <div class="position-relative">
+                            <img src="@room.Image"
+                                 alt="Room @room.RoomNumber"
+                                 class="card-img-top w-100"
+                                 style="height: 220px; object-fit: cover;" />
+
+                            <span class="badge position-absolute top-0 start-0 m-3 px-3 py-2"
+                                  style="background-color: #ffd43b; color: #00126a;">
+                                Room @room.RoomNumber
+                            </span>
+                        </div>
+
+                        <!-- Room Information -->
+                        <div class="card-body p-4 d-flex flex-column">
+
+                            <h5 class="card-title fw-bold"
+                                style="color: #00126a;">
+                                Room @room.RoomNumber
+                            </h5>
+
+                            <p class="text-secondary lh-lg">
+                                @room.Description
+                            </p>
+
+                            <div class="rounded-3 p-3 mb-4"
+                                 style="background-color: #f5f7fc;">
+
+                                <span class="text-secondary">Capacity:</span>
+
+                                <span class="fw-semibold"
+                                      style="color: #00126a;">
+                                    @room.Capacity guests
+                                </span>
+
+                            </div>
+
+                            <div class="mt-auto border-top pt-3
+                                            d-flex flex-column flex-sm-row
+                                            justify-content-between align-items-sm-center gap-3">
+
+                                <div>
+                                    <small class="text-secondary d-block">
+                                        Price per night
+                                    </small>
+
+                                    <span class="fs-5 fw-bold"
+                                          style="color: #00126a;">
+                                        @room.Price
+                                    </span>
+                                </div>
+
+                                <a href="/Bookings/Create"
+                                   class="btn fw-semibold px-3 py-2"
+                                   style="background-color: #00126a; color: white;">
+                                    Book Now →
+                                </a>
+
+                            </div>
+
+                        </div>
+                    </div>
+
+                </div>
+            }
+
+        </div>
+
+    </div>
+</div>
