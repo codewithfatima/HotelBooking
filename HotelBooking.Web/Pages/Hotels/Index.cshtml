@@ -70,21 +70,24 @@
 
                         <!-- Hotel Image -->
                         <div class="hotel-image-wrapper">
+                            <div class="hotel-image-container position-relative">
 
-                            @* <img src="@hotel.Image"
-                                 class="hotel-image"
-                                 alt="@hotel.Name"
-                                 loading="lazy"
-                                 onerror="this.onerror=null; this.src='/images/default-hotel.jpg';" /> *@
-
-                     <a asp-page="/Hotels/Details" asp-route-hotelId="@hotel.Id">
-                            <img src="@Url.Content("~/images/" + hotel.Image)"
-                                 class="img-fluid rounded-4"
-                                 alt="@hotel.Name"
-                                 style="height: 230px; width: 100%; object-fit: cover;"
-                                 onerror="this.onerror=null; this.src='/images/Hotel.png';" />
-                     </a>
-
+                                <a asp-page="/Hotels/Details"
+                                   asp-route-hotelId="@hotel.Id">
+                                    <img src="@hotel.Image"
+                                         class="hotel-image"
+                                         alt="@hotel.Name"
+                                         loading="lazy"
+                                         onerror="this.onerror=null; this.src='/images/default-hotel.jpg';" />
+                                </a>
+                                <button type="button"
+                                        class="btn btn-light rounded-circle position-absolute top-0 end-0 m-3 shadow d-flex align-items-center justify-content-center"
+                                        style="width: 42px; height: 42px; z-index: 2;"
+                                        aria-label="Add to favorites"
+                                        onclick="toggleFavorite(this, event)">
+                                    <i class="bi bi-heart fs-5"></i>
+                                </button>
+                           </div>
                             <div class="image-overlay"></div>
 
                             <span class="hotel-tag">
@@ -131,14 +134,15 @@
                                     Comfortable stay
                                 </div>
 
-                                <a href="#"
+                                <a asp-page="/Hotels/Details" asp-Route-hotelId="@hotel.Id"
+
                                    class="hotel-button">
                                     View Details
                                     <i class="bi bi-arrow-up-right ms-2"></i>
                                 </a>
 
                             </div>
-
+                          
                         </div>
 
                     </article>
@@ -187,3 +191,22 @@
         </div>
     </div>
 </div>
+
+
+
+<script>
+
+    function toggleFavorite(button, event) {
+        event.preventDefault();
+        event.stopPropagation();
+
+        const icon = button.querySelector("i");
+        const isOutline = icon.classList.contains("bi-heart");
+
+        icon.classList.toggle("bi-heart", !isOutline);
+        icon.classList.toggle("bi-heart-fill", isOutline);
+
+        button.style.color = isOutline ? "#dc3545" : "#6c757d";
+    }
+
+</script>

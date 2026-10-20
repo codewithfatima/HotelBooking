@@ -30,7 +30,7 @@ namespace HotelBooking.Api.Controllers
             return Ok( rooms);
         }
 
-        [Authorize]
+        [AllowAnonymous]
         [HttpGet("hotel/{hotelId}")]
         public async Task<IActionResult> GetRoomsByHotelIdAsync(int hotelId)
         {

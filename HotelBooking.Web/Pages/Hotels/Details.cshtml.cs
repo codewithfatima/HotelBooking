@@ -9,8 +9,8 @@ namespace HotelBooking.Web.Pages.Hotels
     {
         private readonly IHttpClientFactory _httpClientFactory;
 
-        public Hotel Hotel { get; set; } = new();
-        public List<Room> Room { get; set; } = new();
+        public HotelDto Hotel { get; set; } = new();
+        public List<RoomDto> Rooms { get; set; } = new();
 
         public DetailsModel(IHttpClientFactory httpClientFactory)
         {
@@ -18,13 +18,19 @@ namespace HotelBooking.Web.Pages.Hotels
         }
 
 
-        public async Task OnGet(int hotelId)
+        public async Task OnGetAsync(int hotelId)
         {
             var client = _httpClientFactory.CreateClient("HotelApi");
-            Hotel = await client.GetFromJsonAsync<Hotel>($"api/Hotel/{hotelId}") ?? new();
-           var rooms = await client.GetFromJsonAsync<List<Room>>($"api/Room") ?? new();
 
-            Room = rooms.Where(r => r.HotelId == hotelId).ToList();
+            var hotelResponse = await client.GetAsync($"api/hotel/{hotelId}");
+            var roomResponse = await client.GetAsync($"api/room/hotel/{hotelId}");
+
+            // check status codes
+            var hotelStatus = hotelResponse.StatusCode;
+            var roomStatus = roomResponse.StatusCode;
+
+            Hotel = await hotelResponse.Content.ReadFromJsonAsync<HotelDto>() ?? new();
+            Rooms = await roomResponse.Content.ReadFromJsonAsync<List<RoomDto>>() ?? new();
         }
     }
 }

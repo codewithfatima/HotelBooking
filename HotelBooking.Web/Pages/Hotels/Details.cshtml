@@ -186,7 +186,7 @@
 
             <span class="badge rounded-pill px-3 py-2 fs-6"
                   style="background-color: #fff0a8; color: #00126a;">
-                @Model.Room.Count() Rooms
+                @Model.Rooms.Count() Rooms
             </span>
 
         </div>
@@ -194,7 +194,7 @@
         <!-- Room Cards -->
         <div class="row g-4">
 
-            @foreach (var room in Model.Room)
+            @foreach (var room in Model.Rooms)
             {
                 <div class="col-md-6 col-lg-4">
 
@@ -203,7 +203,8 @@
                         <!-- Room Image -->
                         <div class="position-relative">
                             <img src="@room.Image"
-                                 alt="Room @room.RoomNumber"
+                                 alt="Room @room.RoomType"
+                                 onerror="this.src='/images/Hotel.png'"
                                  class="card-img-top w-100"
                                  style="height: 220px; object-fit: cover;" />
 

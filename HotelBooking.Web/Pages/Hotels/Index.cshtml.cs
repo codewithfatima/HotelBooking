@@ -13,12 +13,12 @@ namespace HotelBooking.Web.Pages.Hotels
             _httpClientFactory = httpClientFactory;
         }
 
-        public List<Hotel> Hotels { get; set; } = new();
+        public List<HotelDto> Hotels { get; set; } = new();
 
         public async Task OnGetAsync()
         {
             var client = _httpClientFactory.CreateClient("HotelApi");
-            Hotels = await client.GetFromJsonAsync<List<Hotel>>("api/hotel") ?? new();
+            Hotels = await client.GetFromJsonAsync<List<HotelDto>>("api/hotel") ?? new();
         }
     }
 }
