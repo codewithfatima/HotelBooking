@@ -31,5 +31,6 @@ namespace HotelBooking.Api.Dtos.Room
         [Range(1, int.MaxValue)]
         public int HotelId { get; set; }
 
+
     }
 }

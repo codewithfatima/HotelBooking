@@ -1,0 +1,88 @@
+﻿@page
+@model HotelBooking.Web.Pages.Hotels.favoritesModel
+@{
+    ViewData["Title"] = "My Favorite Hotels";
+}
+
+<section class="hotels-section py-5">
+    <div class="container">
+
+        <h1 class="hotels-heading mb-3">
+            My <span>Favorite Hotels</span> ❤️
+        </h1>
+
+        <p class="text-secondary mb-4">
+            All the hotels you have saved for your next trip.
+        </p>
+
+        <div id="emptyFavorites" class="empty-hotels text-center py-5" hidden>
+            <h4>No favorites yet ❤️</h4>
+            <p class="text-secondary">
+                Browse hotels and tap the heart to save them here.
+            </p>
+            <a asp-page="/Hotels/Index" class="btn btn-primary">
+                Explore Hotels
+            </a>
+        </div>
+
+        <div id="favoritesList" class="row g-4"></div>
+
+    </div>
+</section>
+
+<script>
+    document.addEventListener("DOMContentLoaded", async function () {
+        const favoritesList = document.getElementById("favoritesList");
+        const emptyFavorites = document.getElementById("emptyFavorites");
+
+        let favorites = [];
+
+        try {
+            favorites = JSON.parse(
+                localStorage.getItem("favoriteHotels") || "[]"
+            );
+        } catch {
+            favorites = [];
+        }
+
+        if (!Array.isArray(favorites) || favorites.length === 0) {
+            emptyFavorites.hidden = false;
+            return;
+        }
+
+        try {
+            const response = await fetch("/Hotels");
+
+            if (!response.ok) {
+                throw new Error("Could not load hotels.");
+            }
+
+            const html = await response.text();
+            const parser = new DOMParser();
+            const doc = parser.parseFromString(html, "text/html");
+
+            const hotelCards = doc.querySelectorAll(".hotel-card");
+
+            hotelCards.forEach(card => {
+                const button = card.querySelector(".favorite-btn");
+                if (!button) return;
+
+                const hotelId = button.dataset.hotelId;
+
+                if (favorites.map(String).includes(String(hotelId))) {
+                    const column = card.closest(".col-12, .col-md-6, .col-lg-4");
+
+                    if (column) {
+                        favoritesList.appendChild(column.cloneNode(true));
+                    }
+                }
+            });
+
+            emptyFavorites.hidden = favoritesList.children.length > 0;
+
+        } catch (error) {
+            console.error("Error loading favorite hotels:", error);
+            emptyFavorites.hidden = false;
+        }
+    });
+</script>

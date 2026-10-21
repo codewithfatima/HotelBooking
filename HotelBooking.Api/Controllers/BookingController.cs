@@ -38,7 +38,7 @@ namespace HotelBooking.Api.Controllers
             }
             return Ok(booking);
         }
-        [Authorize(Roles = "Admin")]    // only admins
+        [Authorize]    // only admins[Authorize]
         [HttpPost]
         public async Task<IActionResult> CreateBookingAsync(CreateBookingDto createBookingDto)
         {
