@@ -22,17 +22,7 @@ namespace HotelBooking.Api.Service
         {
             var room = await _roomRepository.GetAllRoomsAsync();
 
-            var response = room.Select(r => new ResponseRoomDto
-            {
-                Id = r.Id,
-                RoomNumber = r.RoomNumber,
-                Capacity = r.Capacity,
-                RoomType = r.RoomType,
-                Description = r.Description,
-                Price = r.Price,
-                Image = r.Image
-            }).ToList();
-            return response;
+            return room.Select(MapToResponse).ToList();
         }
 
         public async Task<List<ResponseRoomDto>> GetRoomsByHotelIdAsync(int hotelId)
@@ -80,7 +70,7 @@ namespace HotelBooking.Api.Service
         }
         public async Task<ResponseRoomDto?> UpdateRoomAsync(int id, UpdateRoomDto dto)
         {
-            var exisitingRoom = await _roomRepository.GetRoomByIdAsync(dto.Id);
+            var exisitingRoom = await _roomRepository.GetRoomByIdAsync(id);
 
             if (exisitingRoom == null)
             {

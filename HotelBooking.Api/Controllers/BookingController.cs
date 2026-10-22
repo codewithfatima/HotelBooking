@@ -38,6 +38,8 @@ namespace HotelBooking.Api.Controllers
             }
             return Ok(booking);
         }
+
+
         [Authorize]    // only admins[Authorize]
         [HttpPost]
         public async Task<IActionResult> CreateBookingAsync(CreateBookingDto createBookingDto)
@@ -46,6 +48,8 @@ namespace HotelBooking.Api.Controllers
             var createBooking = await _bookingService.CreateBookingAsync(createBookingDto , userId);
             return Ok(new { message = "Booking created Successfully "  , createBooking });
         }
+
+
         [Authorize(Roles = "Admin")]    // only admins
         [HttpPut("{id}")]   
         public async  Task<IActionResult> UpdateBookingAsync(int id, UpdateBookingDto updateBookingDto)

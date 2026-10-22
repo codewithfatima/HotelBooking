@@ -59,6 +59,7 @@ namespace HotelBooking.Api.Service
                 RoomId = createBookingDto.RoomId,
                 CheckInDate = createBookingDto.CheckInDate,
                 CheckOutDate = createBookingDto.CheckOutDate,
+                UserId =userId, 
             };
 
             await  _bookingRepository.AddBooking(booking);
