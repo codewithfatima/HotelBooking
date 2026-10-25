@@ -1,16 +1,20 @@
 ﻿using HotelBooking.Api.Dtos.Booking;
 using HotelBooking.Api.Interface;
 using HotelBooking.Api.Models;
+using HotelBooking.Api.Repository;
 
 namespace HotelBooking.Api.Service
 {
     public class BookingService:IBoookingService
     {
         private readonly IBookingRepository _bookingRepository;
+        private readonly IRoomRepository _roomRepository;
 
-        public BookingService(IBookingRepository bookingRepository)
+        public BookingService(IBookingRepository bookingRepository , IRoomRepository roomRepository)
         {
             _bookingRepository = bookingRepository;
+            _roomRepository = roomRepository;
+
         }
 
         public async Task<List<ResponseBookingDto>> GetAllBookingsAsync()
@@ -54,15 +58,26 @@ namespace HotelBooking.Api.Service
         }
         public async Task<ResponseBookingDto?> CreateBookingAsync(CreateBookingDto createBookingDto, int userId)
         {
+            var room = await _roomRepository.GetRoomByIdAsync(createBookingDto.RoomId);
+            if (room == null) return null;
+
+            var nights = createBookingDto.CheckOutDate.DayNumber - createBookingDto.CheckInDate.DayNumber;
+            var pricePerNight = room.Price;
+            var totalPrice = pricePerNight * nights;
+
             var booking = new Booking
             {
                 RoomId = createBookingDto.RoomId,
                 CheckInDate = createBookingDto.CheckInDate,
                 CheckOutDate = createBookingDto.CheckOutDate,
-                UserId =userId, 
+                UserId =userId,
+                PricePerNight = pricePerNight,
+                TotalPrice = totalPrice,
+                CreatedAt = DateTime.UtcNow
             };
+      
 
-            await  _bookingRepository.AddBooking(booking);
+            await _bookingRepository.AddBooking(booking);
             await _bookingRepository.SaveChangesAsync();
 
             return new ResponseBookingDto

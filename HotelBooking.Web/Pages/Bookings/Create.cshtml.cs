@@ -54,7 +54,7 @@ namespace HotelBooking.Web.Pages.Bookings
             if (response.IsSuccessStatusCode)
                 return RedirectToPage("/Bookings/MyBookings");
 
-            // 👇 THIS WILL SHOW YOU THE EXACT API ERROR ON YOUR WEBPAGE
+            //  THIS WILL SHOW YOU THE EXACT API ERROR ON YOUR WEBPAGE
             var errorContent = await response.Content.ReadAsStringAsync();
             ErrorMessage = $"API Error ({response.StatusCode}): {errorContent}";
 
